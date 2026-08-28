@@ -1,0 +1,22 @@
+[
+  {"seed": 1001, "variant": "normal"},
+  {"seed": 1002, "variant": "normal"},
+  {"seed": 1003, "variant": "normal"},
+  {"seed": 1004, "variant": "normal"},
+  {"seed": 1005, "variant": "normal"},
+  {"seed": 1006, "variant": "normal"},
+  {"seed": 1007, "variant": "normal"},
+  {"seed": 1008, "variant": "normal"},
+  {"seed": 1009, "variant": "normal"},
+  {"seed": 1010, "variant": "normal"},
+  {"seed": 1011, "variant": "normal"},
+  {"seed": 1012, "variant": "normal"},
+  {"seed": 1013, "variant": "normal"},
+  {"seed": 1014, "variant": "normal"},
+  {"seed": 2001, "variant": "tight_door"},
+  {"seed": 2002, "variant": "tight_door"},
+  {"seed": 3001, "variant": "delivery_near_obstacle"},
+  {"seed": 3002, "variant": "delivery_near_obstacle"},
+  {"seed": 4001, "variant": "odom_dropout"},
+  {"seed": 4002, "variant": "map_dropout"}
+]

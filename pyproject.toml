@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uav-ego-exam"
+version = "0.2.0"
+description = "A lightweight 3D UAV teaching simulator inspired by the role of EGO-Planner"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "matplotlib>=3.7",
+  "pillow>=9.4",
+]
+
+[tool.setuptools.packages.find]
+include = ["uav_exam*"]

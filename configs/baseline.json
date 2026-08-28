@@ -1,0 +1,10 @@
+{
+  "name": "baseline",
+  "max_speed": 1.0,
+  "max_accel": 1.5,
+  "clearance": 0.25,
+  "z_max": 5.0,
+  "planning_horizon": 3.0,
+  "door_speed": 0.5,
+  "door_clearance": 0.25
+}

@@ -1,0 +1,10 @@
+{
+  "name": "adaptive",
+  "max_speed": 0.7,
+  "max_accel": 1.2,
+  "clearance": 0.32,
+  "z_max": 1.45,
+  "planning_horizon": 3.0,
+  "door_speed": 0.42,
+  "door_clearance": 0.21
+}

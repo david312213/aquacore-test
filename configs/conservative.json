@@ -1,0 +1,10 @@
+{
+  "name": "conservative",
+  "max_speed": 0.5,
+  "max_accel": 1.0,
+  "clearance": 0.30,
+  "z_max": 1.45,
+  "planning_horizon": 3.0,
+  "door_speed": 0.45,
+  "door_clearance": 0.24
+}

@@ -57,6 +57,7 @@ class Simulator:
         self.rng = np.random.default_rng(scenario.seed + 93_817)
         self.pose = scenario.mission.start
         self.velocity = (0.0, 0.0, 0.0)
+        self.commanded_speed = 0.0
         self.time = 0.0
         self.remaining_payloads = list(scenario.mission.required_payloads)
         self.metrics = RunMetrics(scenario.seed, scenario.variant, profile.name)
@@ -226,11 +227,15 @@ class Simulator:
         action = getattr(self, "_effective_action", requested_action)
         old = self.pose
         new = old
+        self.commanded_speed = 0.0
         if action.mode is ActionMode.LAND:
             new = Pose(old.x, old.y, max(0.0, old.z - self.config.landing_rate * self.config.dt))
+            self.commanded_speed = self.config.landing_rate
         elif action.mode is ActionMode.FOLLOW_TRAJECTORY and self.active_trajectory:
+            previous_command = sample_trajectory(self.active_trajectory, self.trajectory_elapsed)
             self.trajectory_elapsed += self.config.dt
             new = sample_trajectory(self.active_trajectory, self.trajectory_elapsed)
+            self.commanded_speed = previous_command.distance_3d(new) / self.config.dt
         if new.z > self.scenario.mission.arena_height + 1e-9:
             self.metrics.fatal_collision = True
             self.metrics.collision_count += 1
@@ -312,6 +317,12 @@ class Simulator:
                 if self.pose.z > self.scenario.mission.obstacle_height_limit:
                     self.metrics.overflight = True
                     self._event(f"gate_{gate.index + 1}_overflown")
+                    continue
+                # Use the intended trajectory speed rather than the measured
+                # pose delta, which also contains odometry/replan noise.
+                speed = self.commanded_speed
+                if speed > 0.5 + 1e-9:
+                    self._event(f"gate_{gate.index + 1}_too_fast:v={speed:.2f}")
                     continue
                 edge_clearance = min(self.pose.y - low, high - self.pose.y) - self.config.body_radius
                 if edge_clearance >= 0.05:

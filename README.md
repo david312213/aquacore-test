@@ -1,4 +1,6 @@
-# 三维自主快递无人机接口编程考核（学生版）
+# AquaCore Test
+
+三维自主快递无人机接口编程考核（学生版）
 
 这是面向学生发布的纯 Python 三维无人机接口编程考核，单场满分 100 分。你需要补全控制器，使无人机在未知障碍环境中依次完成蓝、紫、绿三个定点投放，穿过两扇随机窄门并准确降落。
 
@@ -17,8 +19,8 @@
 先在 PowerShell 中执行：
 
 ```powershell
-git clone https://github.com/david312213/robocup-uav-exam-student.git
-cd robocup-uav-exam-student
+git clone https://github.com/david312213/aquacore-test.git
+cd aquacore-test
 .\setup_windows.bat
 ```
 

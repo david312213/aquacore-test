@@ -10,13 +10,14 @@
 
 ## 运行环境
 
-- 推荐：Windows 10/11，64 位 Python 3.11 或 3.12。
+- 统一使用 Conda，环境名称为 `aquacore-test`，Python 版本固定为3.11。
+- 推荐：Windows 10/11 + 64位Miniconda。
 - 也支持 Ubuntu 22.04/24.04 和 macOS。
-- Windows 安装 Python 时必须勾选 `Add Python to PATH`。
+- 依赖以 `environment.yml` 为准；无需单独安装Python或创建 `.venv`。
 
 ## Windows 下载与安装
 
-先在 PowerShell 中执行：
+先按[官方说明](https://www.anaconda.com/docs/getting-started/miniconda/install/windows-gui-install)安装64位Miniconda，选择仅为当前用户安装。安装完成后打开 **Anaconda Prompt**，执行：
 
 ```powershell
 git clone https://github.com/david312213/aquacore-test.git
@@ -24,7 +25,7 @@ cd aquacore-test
 .\setup_windows.bat
 ```
 
-如果系统提示无法识别 `git`，请先安装 Git for Windows，安装完成后关闭并重新打开 PowerShell：
+脚本会根据 `environment.yml` 创建或更新 `aquacore-test` 环境，并自动运行项目测试。如果系统提示无法识别 `git`，请先安装Git for Windows，安装完成后重新打开Anaconda Prompt：
 
 ```powershell
 winget install --id Git.Git -e
@@ -35,19 +36,19 @@ winget install --id Git.Git -e
 运行一个公开场景，并在结束后打开三维回放：
 
 ```powershell
-.\.venv\Scripts\python.exe .\run_sim.py --controller student --seed 1001 --animate --events
+conda run -n aquacore-test python .\run_sim.py --controller student --seed 1001 --animate --events
 ```
 
 生成三维轨迹图片：
 
 ```powershell
-.\.venv\Scripts\python.exe .\run_sim.py --controller student --seed 1001 --plot artifacts\student.png --events
+conda run -n aquacore-test python .\run_sim.py --controller student --seed 1001 --plot artifacts\student.png --events
 ```
 
 生成 GIF：
 
 ```powershell
-.\.venv\Scripts\python.exe .\run_sim.py --controller student --seed 1001 --gif artifacts\student.gif --events
+conda run -n aquacore-test python .\run_sim.py --controller student --seed 1001 --gif artifacts\student.gif --events
 ```
 
 需要二维俯视图时，在命令末尾增加 `--view 2d`。
@@ -57,16 +58,26 @@ winget install --id Git.Git -e
 快速运行前三个公开场景：
 
 ```powershell
-.\.venv\Scripts\python.exe .\evaluate.py --controller student --profiles adaptive --limit 3
+conda run -n aquacore-test python .\evaluate.py --controller student --profiles adaptive --limit 3
 ```
 
 运行全部 20 个公开场景：
 
 ```powershell
-.\.venv\Scripts\python.exe .\evaluate.py --controller student --profiles adaptive
+conda run -n aquacore-test python .\evaluate.py --controller student --profiles adaptive
 ```
 
 评测数据保存在 `results/evaluation.json`，对比图保存在 `results/comparison.png`。
+
+## Ubuntu与macOS
+
+安装Miniconda并重新打开终端后执行：
+
+```bash
+chmod +x setup_ubuntu.sh
+./setup_ubuntu.sh
+conda run -n aquacore-test python run_sim.py --controller student --seed 1001 --animate --events
+```
 
 ## 可以修改和提交的文件
 

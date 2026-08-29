@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if ! command -v python3 >/dev/null 2>&1; then
-  echo "Python 3 is required. Install it with:" >&2
-  echo "  sudo apt update && sudo apt install python3 python3-venv python3-pip" >&2
+ENV_NAME="aquacore-test"
+
+if ! command -v conda >/dev/null 2>&1; then
+  echo "Conda was not found." >&2
+  echo "Install Miniconda, reopen the terminal, then run this script again." >&2
+  echo "Official installer: https://www.anaconda.com/docs/getting-started/miniconda/install/" >&2
   exit 1
 fi
 
-python3 -m venv .venv
-.venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m unittest discover -s tests -v
+if conda run -n "$ENV_NAME" python --version >/dev/null 2>&1; then
+  conda env update --name "$ENV_NAME" --file environment.yml --prune
+else
+  conda env create --file environment.yml
+fi
+
+conda run -n "$ENV_NAME" python -m unittest discover -s tests -v
 
 echo
 echo "Setup complete. Try:"
-echo "  .venv/bin/python run_sim.py --controller student --seed 1001 --animate"
+echo "  conda run -n $ENV_NAME python run_sim.py --controller student --seed 1001 --animate --events"

@@ -184,7 +184,7 @@ result = planner.plan(start, grid, goal, params)
 
 ### 6.1 Windows 10/11
 
-安装64位Python 3.11或3.12，安装时勾选 `Add Python to PATH`。进入项目目录后首次运行：
+安装64位Miniconda，安装完成后打开Anaconda Prompt。项目统一使用名为 `aquacore-test` 的Conda环境，Python版本由 `environment.yml` 固定为3.11。进入项目目录后首次运行：
 
 ```powershell
 .\setup_windows.bat
@@ -193,13 +193,13 @@ result = planner.plan(start, grid, goal, params)
 运行一个公开场景并查看三维回放：
 
 ```powershell
-.\.venv\Scripts\python.exe .\run_sim.py --controller student --seed 1001 --animate --events
+conda run -n aquacore-test python .\run_sim.py --controller student --seed 1001 --animate --events
 ```
 
 运行全部20个公开场景：
 
 ```powershell
-.\.venv\Scripts\python.exe .\evaluate.py --controller student --profiles adaptive
+conda run -n aquacore-test python .\evaluate.py --controller student --profiles adaptive
 ```
 
 评测数据保存到 `results/evaluation.json`，对比图保存到 `results/comparison.png`。
@@ -218,5 +218,5 @@ configs/adaptive.json
 | 序号 | 确认内容 | 序号 | 确认内容 |
 |---:|---|---:|---|
 | 1 | 覆盖到全新学生仓库后可直接运行 | 4 | 不依赖绝对路径、额外文件、网络、ROS或人工输入 |
-| 2 | 类名、构造函数、`reset()` 和 `step()` 签名未改变 | 5 | 未使用 `requirements.txt` 之外的第三方库 |
+| 2 | 类名、构造函数、`reset()` 和 `step()` 签名未改变 | 5 | 未使用 `environment.yml` 之外的第三方库 |
 | 3 | 20个公开场景可完整运行并生成结果 | — | — |

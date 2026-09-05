@@ -8,6 +8,8 @@
 
 完整规则可阅读 [ASSIGNMENT.md](ASSIGNMENT.md)，也可以直接下载 Word 版：[终极考核.docx](docs/终极考核.docx)。
 
+参考完整飞行效果：[演示视频](docs/演示视频.mp4)。
+
 ## 运行环境
 
 - 统一使用 Conda，环境名称为 `aquacore-test`，Python 版本固定为3.11。
